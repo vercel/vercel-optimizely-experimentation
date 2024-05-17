@@ -3,17 +3,12 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { products } from "@/lib/products";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { Suspense } from "react";
 import RelatedProducts from "@/components/related-products";
 import AddToCartButton from "@/components/add-to-cart";
-import BuyNowButton from "@/components/buy-now";
-import { showBuyNowFlag } from "@/lib/server-flags";
 import { formatUSD } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
-import ButtonSkeleton from "@/components/ui/button-skeleton";
-import { FlagValues } from "@vercel/flags/react";
 
 export default async function ProductDetailPage({
   params,
