@@ -16,14 +16,13 @@ export async function trackProductPurchase() {
   await client.onReady();
 
   const cookieStore = cookies();
-  const shopperId = cookieStore.get("shopper")?.value;
-  const context = client?.createUserContext(shopperId);
+  const shopper = cookieStore.get("shopper")?.value;
+  const context = client?.createUserContext(shopper);
 
   if (!context) {
     throw new Error("Failed to create user context");
   }
 
-  console.log("Tracking product purchase");
   context.trackEvent("product_purchase");
 }
 
