@@ -10,8 +10,8 @@ export const showBuyNowFlag = flag<{
   key: "buynow",
   description: "Flag for showing Buy Now button on PDP",
   options: [
-    { label: "off", value: { enabled: false } },
-    { label: "on", value: { enabled: true } },
+    { label: "Hide", value: { enabled: false } },
+    { label: "Show", value: { enabled: true } },
   ],
   async decide({ headers }) {
     const client = optimizely.createInstance({
@@ -45,6 +45,12 @@ export const showBuyNowFlag = flag<{
 
 export const showPromoBannerFlag = flag<boolean>({
   key: "showPromoBanner",
+  defaultValue: false,
+  description: "Flag for showing promo banner on homepage",
+  options: [
+    { value: false, label: "Hide" },
+    { value: true, label: "Show" },
+  ],
   async decide() {
     return false;
   },

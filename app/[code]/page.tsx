@@ -6,10 +6,16 @@ import ProductCard from "@/components/product-card";
 import { products } from "@/lib/products";
 import Link from "next/link";
 import Image from "next/image";
-import { showPromoBannerFlag } from "@/lib/flags";
+import { precomputeFlags, showPromoBannerFlag } from "@/lib/flags";
 
 export default async function Home({ params }: { params: { code: string } }) {
-  const showPromoBanner = await showPromoBannerFlag(params.code);
+  // passing params.code and precomputedFlags reads the precomputed result
+  // if you call showPromoBannerFlag() without any arguments it would decide
+  // within this page instead of reading the precomputed result
+  const showPromoBanner = await showPromoBannerFlag(
+    params.code,
+    precomputeFlags
+  );
 
   return (
     <main className="min-h-screen max-w-5xl py-6 mx-auto">
