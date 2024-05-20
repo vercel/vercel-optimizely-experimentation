@@ -1,8 +1,9 @@
 import optimizely from "@optimizely/optimizely-sdk";
-import { unstable_declareServerFlag } from "@vercel/flags/next/server";
+import { unstable_declareServerFlag as declareServerFlag } from "@vercel/flags/next/server";
 import { getCookieFromHeaders } from "./utils";
+import { reportValue } from "@vercel/flags";
 
-export const showBuyNowFlag = unstable_declareServerFlag<{
+export const showBuyNowFlag = declareServerFlag<{
   enabled: boolean;
   buttonText?: string;
 }>({
@@ -31,10 +32,13 @@ export const showBuyNowFlag = unstable_declareServerFlag<{
     }
 
     const decision = context.decide("buynow");
-
-    return {
+    const flag = {
       enabled: decision.enabled,
       buttonText: decision.variables.buynow_text as string,
     };
+
+    reportValue("buynow", flag);
+
+    return flag;
   },
 });

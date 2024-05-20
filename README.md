@@ -86,6 +86,21 @@ if (!context) {
 const decision = context.decide("buynow");
 ```
 
+## Integration with Vercel Web Analytics and Runtime Logs
+
+You can filter and break down your site's page views and custom analytics events by feature flags, helping you gain a deeper understanding of how your flags will impact your users. This granular level of analysis in Web Analytics empowers data-driven decisions, allowing you to optimize your experiments for maximum impact.
+
+`reportValue` lets you report the value of a resolved flag, which will make it available when viewing Monitoring, Logs, Analytics and Speed Insights on Vercel. Refer to the Vercel [resources](https://vercel.com/blog/introducing-platform-wide-understanding-and-experimental-nextjs-design-pattern) for more information.
+
+```typescript
+const decision = context.decide("buynow");
+const flag = {
+  enabled: decision.enabled,
+  buttonText: decision.variables.buynow_text as string,
+};
+reportValue("buynow", flag);
+```
+
 ## Integrating feature flags with the Vercel Toolbar
 
 The Vercel Toolbar is a tool that assists in the iteration and development process. Through the toolbar, you can leave feedback on deployments with Comments, navigate through important dashboard pages, share deployments, utilize Draft Mode for previewing unpublished content, and Visual Editing for editing content in real-time.
