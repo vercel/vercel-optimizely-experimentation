@@ -1,6 +1,6 @@
 import optimizely from "@optimizely/optimizely-sdk";
 import { unstable_declareServerFlag as declareServerFlag } from "@vercel/flags/next/server";
-import { getCookieFromHeaders } from "./utils";
+import { getShopperFromHeaders } from "./utils";
 import { reportValue } from "@vercel/flags";
 
 export const showBuyNowFlag = declareServerFlag<{
@@ -24,8 +24,8 @@ export const showBuyNowFlag = declareServerFlag<{
 
     await client.onReady();
 
-    const shopperId = getCookieFromHeaders("shopper", headers);
-    const context = client.createUserContext(shopperId);
+    const shopper = getShopperFromHeaders(headers);
+    const context = client.createUserContext(shopper);
 
     if (!context) {
       throw new Error("Failed to create user context");
