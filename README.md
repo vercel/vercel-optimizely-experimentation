@@ -11,7 +11,7 @@ This project uses:
 - Edge Middleware
 - Tailwind CSS & shadcn/ui
 - The Vercel Toolbar
-- Middleware and server flags
+- Flags
 - Experimentation with Optimizely
 
 ## Deploy on Vercel
@@ -55,11 +55,10 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 | `/app/[code]/page.tsx`                   | Static homepage with dynamic segment for multiple variations |
 | `/app/product/[slug]/page.tsx`           | Product detail page                                          |
 | `/app/cart/page.tsx`                     | Cart page                                                    |
-| `/app/.well-known/vercel/flags/route.ts` | API route exposing middleware and server flags to toolbar    |
+| `/app/.well-known/vercel/flags/route.ts` | API route exposing flags to toolbar                          |
 | `/lib/actions.ts`                        | File containing server actions (e.g. track purchase event)   |
-| `/lib/middleware-flags.ts`               | Contains declared middleware flags, evaluated in middleware  |
-| `/lib/server-flags.ts`                   | Contains declared server flags, evaluated in RSCs            |
-| `/middleware.ts`                         | Evaluates middleware flags, set new shopper cookie           |
+| `/lib/flags.ts`                          | Contains declared flags and precomputed flags                |
+| `/middleware.ts`                         | Evaluates precomputed flags, set new shopper cookie          |
 | `/lib/products.ts`                       | A hardcoded set of products                                  |
 
 ## Deciding a feature with the Optimizely JavaScript SDK
@@ -110,32 +109,19 @@ The Vercel Toolbar is a tool that assists in the iteration and development proce
    The value should be a base64url-encoded string of 32 random bytes. You can generate this value by running the command: `node -e "console.log(crypto.randomBytes(32).toString('base64url'))"`.
 2. Expose the flags to the toolbar via an API route.
    This route should be defined in the `.well-known/vercel/flags` directory. The route should return an object with the flags that you want to expose to the toolbar.
-   This project returns an object with middleware and server flags:
 
    ```ts
    export async function GET(request: NextRequest) {
      const access = await verifyAccess(request.headers.get("Authorization"));
      if (!access) return NextResponse.json(null, { status: 401 });
-
-     const middlewareFlags = unstable_getMiddlewareFlagsProviderData(
-       middlewareDefinitions
-     );
-     const serverFlags = unstable_getServerFlagsProviderData(serverDefinitions);
-
-     return NextResponse.json<ApiData>({
-       definitions: {
-         ...middlewareFlags.definitions,
-         ...serverFlags.definitions,
-       },
-       hints: [...middlewareFlags.hints, ...serverFlags.hints],
-     });
+     return NextResponse.json<ApiData>(getProviderData(flags));
    }
    ```
 
-3. Tell the toolbar the value of your server flags by including the `<FlagValues />` component when using a server flag.
+3. Tell the toolbar the value of your flags by including the `<FlagValues />` component when using a flag.
 
    ```tsx
-   // Server Flag, imported from lib/server-flags.ts
+   // Flag, imported from lib/flags.ts
     const showGetStarted = await showGetStartedFlag();
     return (
       <main className="flex min-h-screen flex-col items-center justify-between p-24">

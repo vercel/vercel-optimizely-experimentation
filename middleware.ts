@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import {
-  unstable_decide,
-  unstable_serialize,
-} from "@vercel/flags/next/middleware";
-import * as flags from "@/lib/middleware-flags";
+  unstable_precompute as precompute,
+  unstable_serialize as serialize,
+} from "@vercel/flags/next";
+import { precomputeFlags } from "./lib/flags";
 
 export const config = {
   matcher: ["/", "/product/:path*", "/cart", "/success"],
@@ -13,13 +13,14 @@ export const config = {
 export async function middleware(request: NextRequest) {
   let response = NextResponse.next();
 
-  // decide via middleware flags for the homepage only
+  const context = {
+    /* pass context on whatever your flag will need */
+  };
+
+  // decide precompute flags for the homepage only
   if (request.nextUrl.pathname === "/") {
-    const context = {
-      /* pass any context data your flag may need */
-    };
-    const flagSet = await unstable_decide(request, flags, context);
-    const code = await unstable_serialize(flagSet, flags);
+    const values = await precompute(precomputeFlags, context);
+    const code = await serialize(precomputeFlags, values);
 
     // rewrites the request to the variant for this flag combination
     const nextUrl = new URL(
