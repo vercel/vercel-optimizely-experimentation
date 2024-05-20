@@ -7,13 +7,13 @@ import { Suspense } from "react";
 import RelatedProducts from "@/components/related-products";
 import AddToCartButton from "@/components/add-to-cart";
 import BuyNowButton from "@/components/buy-now";
-import { showBuyNowFlag } from "@/lib/server-flags";
 import { formatUSD } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
 import ButtonSkeleton from "@/components/ui/button-skeleton";
 import { FlagValues } from "@vercel/flags/react";
+import { showBuyNowFlag } from "@/lib/flags";
 
 export default async function ProductDetailPage({
   params,

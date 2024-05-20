@@ -4,9 +4,9 @@
  */
 import ProductCard from "@/components/product-card";
 import { products } from "@/lib/products";
-import { showPromoBannerFlag } from "@/lib/middleware-flags";
 import Link from "next/link";
 import Image from "next/image";
+import { showPromoBannerFlag } from "@/lib/flags";
 
 export default async function Home({ params }: { params: { code: string } }) {
   const showPromoBanner = await showPromoBannerFlag(params.code);
