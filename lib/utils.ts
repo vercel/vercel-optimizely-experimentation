@@ -11,8 +11,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function getCookieFromHeaders(
-  name: string,
+export function getShopperFromHeaders(
   headers: ReadonlyHeaders
 ): string | undefined {
   const cookieString = headers.get("cookie");
@@ -20,8 +19,10 @@ export function getCookieFromHeaders(
     return undefined;
   }
   const cookies = cookieString.split("; ");
-  const cookie = cookies.find((cookie: any) => cookie.startsWith(name + "="));
-  return cookie ? cookie.split("=")[1] : undefined;
+  const cookie = cookies.find((cookie: any) =>
+    cookie.startsWith("shopper" + "=")
+  );
+  return cookie ? cookie.split("=")[1] : "default";
 }
 
 export function formatUSD(amount: number) {
