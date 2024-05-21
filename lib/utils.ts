@@ -13,10 +13,10 @@ export function cn(...inputs: ClassValue[]) {
 
 export function getShopperFromHeaders(
   headers: ReadonlyHeaders
-): string | undefined {
+): string | "default" {
   const cookieString = headers.get("cookie");
   if (!cookieString) {
-    return undefined;
+    return "default";
   }
   const cookies = cookieString.split("; ");
   const cookie = cookies.find((cookie: any) =>
