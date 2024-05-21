@@ -147,7 +147,6 @@ Take a look at the following resources to learn more:
 - [Next.js Documentation](https://nextjs.org/docs)
 - [Learn Next.js](https://nextjs.org/learn)
 - [The Vercel Toolbar](https://vercel.com/docs/workflow-collaboration/vercel-toolbar)
+- [Feature Flags Ship Announcement](https://vercel.com/blog/feature-flags)
 - [Feature Flags with Vercel](https://vercel.com/docs/workflow-collaboration/feature-flags)
-- [Using Middleware with Feature Flags](https://vercel.com/docs/workflow-collaboration/feature-flags/programming-model-middleware)
-- [Creating Server-side Feature Flags](https://vercel.com/docs/workflow-collaboration/feature-flags/programming-model-server)
 - [Optimizely Experimentation](https://www.optimizely.com/products/feature-experimentation/)
