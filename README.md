@@ -4,7 +4,7 @@ This is a [Next.js](https://nextjs.org/) project that demonstrates how teams can
 
 This project uses:
 
-- Next.js 14
+- Next.js
 - App Router
 - RSC (React Server Components) and Suspense
 - Server Actions
