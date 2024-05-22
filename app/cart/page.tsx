@@ -84,9 +84,7 @@ function Cart() {
                     <div className="font-medium">{product.title}</div>
                     <RemoveItemButton productId={product.id} />
                   </div>
-                  <div className="text-gray-500 dark:text-gray-400">
-                    Quantity: 1
-                  </div>
+                  <div className="text-gray-500">Quantity: 1</div>
                   <div>{formatUSD(product.price)}</div>
                 </div>
               </div>
