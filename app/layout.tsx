@@ -3,6 +3,7 @@ import { Cabin } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
 import { VercelToolbar } from "@vercel/toolbar/next";
+import { Analytics } from "@vercel/analytics/react";
 import { Toaster } from "@/components/ui/sonner";
 
 const cabin = Cabin({
@@ -32,6 +33,7 @@ export default function RootLayout({
           https://vercel.com/docs/workflow-collaboration/vercel-toolbar/in-production-and-localhost/add-to-production
         */}
         <VercelToolbar />
+        <Analytics />
         <Toaster richColors />
       </body>
     </html>
