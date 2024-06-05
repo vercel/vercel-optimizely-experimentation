@@ -19,8 +19,7 @@ export async function middleware(request: NextRequest) {
 
   // decide precompute flags for the homepage only
   if (request.nextUrl.pathname === "/") {
-    const values = await precompute(precomputeFlags, context);
-    const code = await serialize(precomputeFlags, values);
+    const code = await precompute(precomputeFlags, context);
 
     // rewrites the request to the variant for this flag combination
     const nextUrl = new URL(
