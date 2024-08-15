@@ -20,7 +20,7 @@ export default function Header() {
         <Button asChild className="pl-1">
           <Link
             target="_blank"
-            href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fvercel-experimentation-workshop%2Ftree%2Fworkshop&env=OPTIMIZELY_API_KEY,OPTIMIZELY_SDK_KEY,OPTIMIZELY_PROJECT_ID,FLAGS_SECRET&project-name=vercel-experimentation-workshop&repository-name=vercel-experimentation-workshop&demo-title=Vercel%20Experimentation%20Workshop&demo-description=A%20Next.js%20project%20leveraging%20Optimizely%20for%20experimentation&demo-url=https%3A%2F%vercel-experimentation-workshop.vercel.app&demo-image=https%3A%2F%vercel-experimentation-workshop.vercel.app%2Fdemo.png&envDescription=Execute%20the%20following%20command%20to%20create%20a%20secret%3A%20node%20-e%20%22console.log(crypto.randomBytes(32).toString('base64url'))%22"
+            href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fvercel-experimentation-workshop%2Ftree%2Fworkshop&env=OPTIMIZELY_API_KEY,OPTIMIZELY_SDK_KEY,OPTIMIZELY_PROJECT_ID,FLAGS_SECRET&project-name=vercel-experimentation-workshop&repository-name=vercel-experimentation-workshop&demo-title=Vercel%20Experimentation%20Workshop&demo-description=A%20Next.js%20project%20leveraging%20Optimizely%20for%20experimentation&demo-url=https%3A%2F%vercel-experimentation-workshop.vercel.app&envDescription=Execute%20the%20following%20command%20to%20create%20a%20secret%3A%20node%20-e%20%22console.log(crypto.randomBytes(32).toString('base64url'))%22"
             className="flex flex-row justify-center items-center"
           >
             <Image
