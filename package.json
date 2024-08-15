@@ -1,9 +1,9 @@
 {
-  "name": "vercel-ship-experimentation-workshop",
+  "name": "verce-experimentation-workshop",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -16,12 +16,12 @@
     "@radix-ui/react-select": "^2.0.0",
     "@radix-ui/react-slot": "^1.0.2",
     "@vercel/analytics": "^1.2.2",
-    "@vercel/flags": "^2.5.1",
+    "@vercel/flags": "^2.6.0",
     "@vercel/toolbar": "^0.1.14",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "lucide-react": "^0.368.0",
-    "next": "^14.2.3",
+    "next": "^14.2.5",
     "next-themes": "^0.3.0",
     "react": "^18",
     "react-dom": "^18",

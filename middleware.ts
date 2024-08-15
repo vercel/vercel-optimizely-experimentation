@@ -1,9 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import {
-  unstable_precompute as precompute,
-  unstable_serialize as serialize,
-} from "@vercel/flags/next";
+import { unstable_precompute as precompute } from "@vercel/flags/next";
 import { precomputeFlags } from "./lib/flags";
 
 export const config = {
