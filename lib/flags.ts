@@ -13,6 +13,10 @@ export const showBuyNowFlag = flag<{
     { label: "Show", value: { enabled: true } },
   ],
   async decide({ headers }) {
+    // optimizely.createInstance({
+    //   sdkKey: process.env.OPTIMIZELY_SDK_KEY!,
+    //   datafile: '' // edge config lookup here
+    // })
     const client = optimizely.createInstance({
       sdkKey: process.env.OPTIMIZELY_SDK_KEY!,
     });
