@@ -1,6 +1,7 @@
 import optimizely from "@optimizely/optimizely-sdk";
 import { unstable_flag as flag } from "@vercel/flags/next";
 import { getShopperFromHeaders } from "./utils";
+import datafile from "./datafile.json";
 
 export const showBuyNowFlag = flag<{
   enabled: boolean;
@@ -14,7 +15,6 @@ export const showBuyNowFlag = flag<{
   ],
   async decide({ headers }) {
     // optimizely.createInstance({
-    //   sdkKey: process.env.OPTIMIZELY_SDK_KEY!,
     //   datafile: '' // edge config lookup here
     // })
     const client = optimizely.createInstance({
@@ -52,8 +52,22 @@ export const showPromoBannerFlag = flag<boolean>({
     { value: false, label: "Hide" },
     { value: true, label: "Show" },
   ],
-  async decide() {
-    return false;
+  async decide({ headers }) {
+    const client = optimizely.createInstance({
+      datafile,
+      eventDispatcher: {
+        dispatchEvent: (event) => {},
+      },
+    });
+    const shopper = getShopperFromHeaders(headers);
+    const context = client!.createUserContext(shopper);
+
+    if (!context) {
+      throw new Error("Failed to create user context");
+    }
+
+    const decision = context.decide("buynow");
+    return decision.enabled;
   },
 });
 
