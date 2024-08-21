@@ -5,7 +5,7 @@ import { reportValue } from "@vercel/flags";
 
 export const showBuyNowFlag = flag<boolean>({
   key: "buynow",
-  description: "Flag for showing Buy Now button on PDP",
+  description: "Flag for showing the Buy Now button on the product detail page",
   options: [
     { label: "Hide", value: false },
     { label: "Show", value: true },
