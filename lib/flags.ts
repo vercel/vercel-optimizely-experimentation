@@ -1,7 +1,6 @@
 import optimizely from "@optimizely/optimizely-sdk";
 import { unstable_flag as flag } from "@vercel/flags/next";
 import { getShopperFromHeaders } from "./utils";
-import { reportValue } from "@vercel/flags";
 
 export const showBuyNowFlag = flag<boolean>({
   key: "buynow",
