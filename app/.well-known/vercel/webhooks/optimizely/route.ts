@@ -14,8 +14,15 @@ export async function POST(req) {
 
     const body = await req.json();
 
-    if (!body?.data?.origin_url) {
-      throw new Error("Missing datafile origin_url");
+    if (!body?.data?.origin_url || !body?.data?.environment) {
+      throw new Error("Missing datafile webhook payload");
+    }
+
+    if (body.data.environment !== "Production") {
+      return NextResponse.json(
+        { success: true, message: "Pre-production environment event" },
+        { status: 200 }
+      );
     }
 
     const response = await fetch(body.data.origin_url);
