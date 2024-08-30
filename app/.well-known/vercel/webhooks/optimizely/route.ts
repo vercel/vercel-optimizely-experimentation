@@ -2,6 +2,16 @@ import { NextResponse } from "next/server";
 
 export async function POST(req) {
   try {
+    const signature = req.headers.get("X-Hub-Signature");
+
+    if (!signature) {
+      throw new Error("Missing X-Hub-Signature header");
+    }
+
+    if (signature !== process.env.OPTIMIZELY_WEBHOOK_SECRET) {
+      throw new Error("Invalid X-Hub-Signature header");
+    }
+
     const body = await req.json();
 
     if (!body?.data?.origin_url) {
