@@ -16,6 +16,7 @@
     "@radix-ui/react-select": "^2.0.0",
     "@radix-ui/react-slot": "^1.0.2",
     "@vercel/analytics": "^1.2.2",
+    "@vercel/edge-config": "^1.2.1",
     "@vercel/flags": "^2.6.0",
     "@vercel/toolbar": "^0.1.14",
     "class-variance-authority": "^0.7.0",
