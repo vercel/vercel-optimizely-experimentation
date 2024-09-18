@@ -1,6 +1,6 @@
-## Building Fast & Safe Experimentation with Vercel & Optimizely
+## Fast & Safe Experimentation with Vercel & Optimizely
 
-This is a [Next.js](https://nextjs.org/) project that demonstrates how teams can incorporate feature flags and experimentation into their development workflow. This project uses a simple ecommerce website as an example.
+This is a [Next.js](https://nextjs.org/) project that demonstrates how teams can incorporate feature experimentation into their development workflow. This project uses a simple ecommerce website as an example.
 
 This project uses:
 
@@ -16,7 +16,7 @@ This project uses:
 
 ## Deploy on Vercel
 
-[![Deploy with Vercel](https://vercel.com/button)](<https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fvercel-experimentation-workshop%2Ftree%2Fworkshop&env=OPTIMIZELY_API_KEY,OPTIMIZELY_SDK_KEY,OPTIMIZELY_PROJECT_ID,FLAGS_SECRET&envDescription=Execute%20the%20following%20command%20to%20create%20a%20secret%3A%20node%20-e%20%22console.log(crypto.randomBytes(32).toString('base64url'))%22&project-name=vercel-experimentation-workshop&repository-name=vercel-experimentation-workshop&demo-title=Vercel%20Experimentation%20Workshop&demo-description=A%20Next.js%20project%20using%20Optimizely%20for%20experimentation&demo-url=https%3A%2F%2Fvercel.com%2Fvercel-experimentation-workshop.vercel.app>)
+[![Deploy with Vercel](https://vercel.com/button)](<https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fvercel-optimizely-experimentation%2Ftree%2Fmain&env=OPTIMIZELY_API_KEY,OPTIMIZELY_SDK_KEY,OPTIMIZELY_PROJECT_ID,FLAGS_SECRET&envDescription=Execute%20the%20following%20command%20to%20create%20a%20secret%3A%20node%20-e%20%22console.log(crypto.randomBytes(32).toString('base64url'))%22&project-name=vercel-optimizely-experimentation&repository-name=vercel-optimizely-experimentation&demo-title=Vercel%20Experimentation&demo-description=A%20Next.js%20project%20using%20Optimizely%20for%20experimentation&demo-url=https%3A%2F%2Fvercel.com%2Fvercel-optimizely-experimentation.vercel.app>)
 
 The easiest way to deploy your Next.js app is to use the Vercel Platform from the creators of Next.js.
 
@@ -144,6 +144,7 @@ Refer to the [Vercel Toolbar documentation](https://vercel.com/docs/workflow-col
 
 Take a look at the following resources to learn more:
 
+- [Workshop - Fast & Safe Experimentation with Next.js and Optimizely](https://vercel.com/resources/workshop-fast-and-safe-experimentation)
 - [Next.js Documentation](https://nextjs.org/docs)
 - [Learn Next.js](https://nextjs.org/learn)
 - [The Vercel Toolbar](https://vercel.com/docs/workflow-collaboration/vercel-toolbar)
