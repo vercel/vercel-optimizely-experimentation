@@ -20,7 +20,7 @@ export default function Header() {
         <Button asChild className="pl-1">
           <Link
             target="_blank"
-            href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fvercel-optimizely-experimentation%2Ftree%main&env=OPTIMIZELY_API_KEY,OPTIMIZELY_SDK_KEY,OPTIMIZELY_PROJECT_ID,FLAGS_SECRET&envDescription=Execute%20the%20following%20command%20to%20create%20a%20secret%3A%20node%20-e%20%22console.log(crypto.randomBytes(32).toString('base64url'))%22&project-name=vercel-optimizely-experimentation&repository-name=vercel-optimizely-experimentation&demo-title=Vercel%20Experimentation&demo-description=A%20Next.js%20project%20using%20Optimizely%20for%20experimentation&demo-url=https%3A%2F%2Fvercel.com%2Fvercel-optimizely-experimentation.vercel.app"
+            href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fvercel-optimizely-experimentation%2Ftree%2Fguide&env=OPTIMIZELY_API_KEY,OPTIMIZELY_SDK_KEY,OPTIMIZELY_PROJECT_ID,FLAGS_SECRET&envDescription=Execute%20the%20following%20command%20to%20create%20a%20secret%3A%20node%20-e%20%22console.log(crypto.randomBytes(32).toString('base64url'))%22&project-name=vercel-optimizely-experimentation&repository-name=vercel-optimizely-experimentation&demo-title=Vercel%20Experimentation&demo-description=A%20Next.js%20project%20using%20Optimizely%20for%20experimentation&demo-url=https%3A%2F%2Fvercel.com%2Fvercel-optimizely-experimentation.vercel.app"
             className="flex flex-row justify-center items-center"
           >
             <Image
