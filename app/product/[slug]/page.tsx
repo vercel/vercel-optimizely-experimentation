@@ -8,17 +8,6 @@ import RelatedProducts, {
 
 export const experimental_ppr = true;
 
-export const generateStaticParams = () => {
-  // SSG all products except hoodie
-  return products
-    .filter((product) => product.slug !== "cup")
-    .map((product) => {
-      return {
-        slug: product.slug,
-      };
-    });
-};
-
 export default function ProductDetailPage(props: {
   params: Promise<{ slug: string }>;
 }) {
