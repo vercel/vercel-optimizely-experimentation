@@ -13,8 +13,6 @@ export default async function RelatedProducts(props: {
     return null;
   }
 
-  await new Promise((resolve) => setTimeout(resolve, 2000));
-
   return (
     <section className="flex flex-col w-full justify-center py-6 space-y-4 md:py-8 lg:py-12">
       <h2 className="font-bold text-2xl">Related Products</h2>

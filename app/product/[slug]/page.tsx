@@ -8,6 +8,12 @@ import RelatedProducts, {
 
 export const experimental_ppr = true;
 
+export const generateStaticParams = () => {
+  return products.slice(0, 3).map((product) => ({
+    slug: product.slug,
+  }));
+};
+
 export default function ProductDetailPage(props: {
   params: Promise<{ slug: string }>;
 }) {

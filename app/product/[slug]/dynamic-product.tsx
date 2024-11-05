@@ -14,12 +14,11 @@ import AddToCartButton from "@/components/add-to-cart";
 import BuyNowButton from "@/components/buy-now";
 import { FlagValues } from "@vercel/flags/react";
 import { notFound } from "next/navigation";
+import { get } from "@vercel/edge-config";
 
 export const DynamicProduct = async (props: {
   params: Promise<{ slug: string }>;
 }) => {
-  // simulate delay
-  await new Promise((resolve) => setTimeout(resolve, 2000));
   const params = await props.params;
   const product = products.filter((p) => p.slug === params.slug)[0];
   if (!product) {
@@ -45,6 +44,9 @@ export const DynamicProduct = async (props: {
             <h1 className="font-bold text-3xl lg:text-4xl">{product.title}</h1>
             <div>
               <p>{product.details}</p>
+              <Suspense fallback={<Skeleton className="w-32 h-6 mt-2" />}>
+                <Stock slug={params.slug} />
+              </Suspense>
             </div>
             <div className="text-4xl font-bold ml-auto">
               {formatUSD(product.price)}
@@ -129,6 +131,19 @@ export const DynamicProduct = async (props: {
         </div>
       </div>
     </>
+  );
+};
+
+const Stock = async ({ slug }: { slug: string }) => {
+  const stock = await get("stock");
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
+  if (!stock || !(stock as Record<string, any>)[slug]) return;
+
+  return (
+    <p className="mt-2">
+      Only {(stock as Record<string, any>)[slug]} left in stock!
+    </p>
   );
 };
 
