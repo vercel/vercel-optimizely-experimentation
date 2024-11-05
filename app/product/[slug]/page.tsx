@@ -11,7 +11,7 @@ export const experimental_ppr = true;
 export const generateStaticParams = () => {
   // SSG all products except hoodie
   return products
-    .filter((product) => product.slug !== "hoodie")
+    .filter((product) => product.slug !== "cup")
     .map((product) => {
       return {
         slug: product.slug,
