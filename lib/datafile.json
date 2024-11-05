@@ -1,0 +1,548 @@
+{
+  "accountId": "20979850399",
+  "projectId": "27962210618",
+  "revision": "118",
+  "attributes": [
+    { "id": "27934830580", "key": "referer" },
+    { "id": "27946610720", "key": "region_state" },
+    { "id": "27950210478", "key": "is_logged_in" },
+    { "id": "27960070423", "key": "industry" },
+    { "id": "27988150554", "key": "flex_cardholder" },
+    { "id": "27994080282", "key": "is_mobile_app" },
+    { "id": "28001620536", "key": "existing_cardholder" },
+    { "id": "28007460290", "key": "credit_score" },
+    { "id": "28009850518", "key": "is_qa" },
+    { "id": "28031750429", "key": "qa_team" },
+    { "id": "28066000066", "key": "days_since_last_order" },
+    { "id": "28068070052", "key": "is_mobile_user" },
+    { "id": "28069980188", "key": "existing_customer" }
+  ],
+  "audiences": [
+    {
+      "id": "$opt_dummy_audience",
+      "name": "Optimizely-Generated Audience for Backwards Compatibility",
+      "conditions": "[\"or\", {\"match\": \"exact\", \"name\": \"$opt_dummy_attribute\", \"type\": \"custom_attribute\", \"value\": \"$opt_dummy_value\"}]"
+    }
+  ],
+  "version": "4",
+  "events": [
+    { "id": "27944800752", "experimentIds": [], "key": "completed_checkout" },
+    { "id": "27944810497", "experimentIds": [], "key": "add_to_cart" },
+    { "id": "27955610624", "experimentIds": [], "key": "viewed_card_details" },
+    { "id": "27959250413", "experimentIds": [], "key": "started_application" },
+    { "id": "27969470748", "experimentIds": [], "key": "completed_view" },
+    { "id": "27971010921", "experimentIds": [], "key": "clicked_product" },
+    { "id": "28022310301", "experimentIds": [], "key": "application_approved" },
+    { "id": "28029580398", "experimentIds": [], "key": "duration_viewed" },
+    { "id": "28034010195", "experimentIds": [], "key": "started_checkout" },
+    {
+      "id": "28046510073",
+      "experimentIds": [],
+      "key": "completed_application"
+    },
+    { "id": "28064440023", "experimentIds": [], "key": "paused_video" },
+    { "id": "28077570072", "experimentIds": [], "key": "closed_video" },
+    { "id": "29230700114", "experimentIds": [], "key": "product_purchase" }
+  ],
+  "integrations": [],
+  "anonymizeIP": true,
+  "botFiltering": false,
+  "typedAudiences": [],
+  "variables": [],
+  "environmentKey": "production",
+  "sdkKey": "LDBadNHhAWKr3Ra2VuyHS",
+  "featureFlags": [
+    {
+      "id": "127362",
+      "key": "inventory_on_pdp",
+      "rolloutId": "rollout-127362-28009160713",
+      "experimentIds": [],
+      "variables": [
+        {
+          "id": "41562",
+          "key": "show_amounts",
+          "type": "boolean",
+          "defaultValue": "false"
+        },
+        {
+          "id": "41563",
+          "key": "text_color",
+          "type": "string",
+          "defaultValue": "green"
+        },
+        {
+          "id": "41564",
+          "key": "low_stock_threshold",
+          "type": "integer",
+          "defaultValue": "0"
+        },
+        {
+          "id": "41565",
+          "key": "low_stock_message",
+          "type": "string",
+          "defaultValue": "Low Stock - Act Quick"
+        }
+      ]
+    },
+    {
+      "id": "127363",
+      "key": "mosey_bank_unlimited_card",
+      "rolloutId": "rollout-127363-28009160713",
+      "experimentIds": [],
+      "variables": [
+        {
+          "id": "41566",
+          "key": "annual_fee",
+          "type": "integer",
+          "defaultValue": "0"
+        },
+        {
+          "id": "41567",
+          "key": "cashback_percent",
+          "type": "double",
+          "defaultValue": "1.5"
+        }
+      ]
+    },
+    {
+      "id": "127364",
+      "key": "lead_form",
+      "rolloutId": "rollout-127364-28009160713",
+      "experimentIds": [],
+      "variables": [
+        {
+          "id": "41568",
+          "key": "form_style",
+          "type": "string",
+          "defaultValue": "wizard"
+        },
+        {
+          "id": "41569",
+          "key": "ask_for_email",
+          "type": "boolean",
+          "defaultValue": "true"
+        },
+        {
+          "id": "41570",
+          "key": "ask_for_phone",
+          "type": "boolean",
+          "defaultValue": "false"
+        },
+        {
+          "id": "41571",
+          "key": "sequence",
+          "type": "string",
+          "defaultValue": "{\"name\": 1,\"address\": 2,\"city\": 3,\"state\": 4,\"zip\": 5,\"email\": 6,\"phone\": 7}",
+          "subType": "json"
+        }
+      ]
+    },
+    {
+      "id": "127365",
+      "key": "video_player",
+      "rolloutId": "rollout-127365-28009160713",
+      "experimentIds": [],
+      "variables": [
+        {
+          "id": "41572",
+          "key": "width",
+          "type": "integer",
+          "defaultValue": "480"
+        },
+        {
+          "id": "41573",
+          "key": "height",
+          "type": "integer",
+          "defaultValue": "200"
+        },
+        {
+          "id": "41574",
+          "key": "position",
+          "type": "string",
+          "defaultValue": "center"
+        }
+      ]
+    },
+    {
+      "id": "127366",
+      "key": "plp",
+      "rolloutId": "rollout-127366-28009160713",
+      "experimentIds": [],
+      "variables": [
+        {
+          "id": "41575",
+          "key": "location_input_for_algorithm",
+          "type": "boolean",
+          "defaultValue": "false"
+        },
+        {
+          "id": "41576",
+          "key": "product_source",
+          "type": "string",
+          "defaultValue": "local"
+        },
+        {
+          "id": "41577",
+          "key": "sort_field",
+          "type": "string",
+          "defaultValue": "title"
+        },
+        {
+          "id": "41698",
+          "key": "integer_variable",
+          "type": "integer",
+          "defaultValue": "0"
+        },
+        {
+          "id": "41699",
+          "key": "double_variable",
+          "type": "double",
+          "defaultValue": "3.5"
+        },
+        {
+          "id": "41700",
+          "key": "json_variable",
+          "type": "string",
+          "defaultValue": "{\n\t\"prop\": 12,\n  \"prop2\": true,\n  \"prop3\": 12.21,\n  \"prop4\": [1,2,3]\n}",
+          "subType": "json"
+        }
+      ]
+    },
+    {
+      "id": "127580",
+      "key": "docs",
+      "rolloutId": "rollout-127580-28009160713",
+      "experimentIds": [],
+      "variables": []
+    },
+    {
+      "id": "127961",
+      "key": "learn",
+      "rolloutId": "rollout-127961-28009160713",
+      "experimentIds": [],
+      "variables": []
+    },
+    {
+      "id": "127962",
+      "key": "templates",
+      "rolloutId": "rollout-127962-28009160713",
+      "experimentIds": [],
+      "variables": []
+    },
+    {
+      "id": "127963",
+      "key": "deploy",
+      "rolloutId": "rollout-127963-28009160713",
+      "experimentIds": [],
+      "variables": []
+    },
+    {
+      "id": "143011",
+      "key": "showBuyNowButton",
+      "rolloutId": "rollout-143011-28009160713",
+      "experimentIds": [],
+      "variables": []
+    },
+    {
+      "id": "147838",
+      "key": "buynow",
+      "rolloutId": "rollout-147838-28009160713",
+      "experimentIds": [],
+      "variables": [
+        {
+          "id": "49448",
+          "key": "buynow_text",
+          "type": "string",
+          "defaultValue": "Buy Now!"
+        }
+      ]
+    }
+  ],
+  "rollouts": [
+    {
+      "id": "rollout-127362-28009160713",
+      "experiments": [
+        {
+          "id": "default-rollout-127362-28009160713",
+          "key": "default-rollout-127362-28009160713",
+          "status": "Running",
+          "layerId": "rollout-127362-28009160713",
+          "variations": [
+            {
+              "id": "399981",
+              "key": "off",
+              "featureEnabled": false,
+              "variables": [
+                { "id": "41562", "value": "false" },
+                { "id": "41563", "value": "green" },
+                { "id": "41564", "value": "0" },
+                { "id": "41565", "value": "Low Stock - Act Quick" }
+              ]
+            }
+          ],
+          "trafficAllocation": [{ "entityId": "399981", "endOfRange": 10000 }],
+          "forcedVariations": {},
+          "audienceIds": [],
+          "audienceConditions": []
+        }
+      ]
+    },
+    {
+      "id": "rollout-127363-28009160713",
+      "experiments": [
+        {
+          "id": "default-rollout-127363-28009160713",
+          "key": "default-rollout-127363-28009160713",
+          "status": "Running",
+          "layerId": "rollout-127363-28009160713",
+          "variations": [
+            {
+              "id": "399986",
+              "key": "off",
+              "featureEnabled": false,
+              "variables": [
+                { "id": "41566", "value": "0" },
+                { "id": "41567", "value": "1.5" }
+              ]
+            }
+          ],
+          "trafficAllocation": [{ "entityId": "399986", "endOfRange": 10000 }],
+          "forcedVariations": {},
+          "audienceIds": [],
+          "audienceConditions": []
+        }
+      ]
+    },
+    {
+      "id": "rollout-127364-28009160713",
+      "experiments": [
+        {
+          "id": "default-rollout-127364-28009160713",
+          "key": "default-rollout-127364-28009160713",
+          "status": "Running",
+          "layerId": "rollout-127364-28009160713",
+          "variations": [
+            {
+              "id": "399991",
+              "key": "off",
+              "featureEnabled": false,
+              "variables": [
+                { "id": "41568", "value": "wizard" },
+                { "id": "41569", "value": "true" },
+                { "id": "41570", "value": "false" },
+                {
+                  "id": "41571",
+                  "value": "{\"name\": 1,\"address\": 2,\"city\": 3,\"state\": 4,\"zip\": 5,\"email\": 6,\"phone\": 7}"
+                }
+              ]
+            }
+          ],
+          "trafficAllocation": [{ "entityId": "399991", "endOfRange": 10000 }],
+          "forcedVariations": {},
+          "audienceIds": [],
+          "audienceConditions": []
+        }
+      ]
+    },
+    {
+      "id": "rollout-127365-28009160713",
+      "experiments": [
+        {
+          "id": "default-rollout-127365-28009160713",
+          "key": "default-rollout-127365-28009160713",
+          "status": "Running",
+          "layerId": "rollout-127365-28009160713",
+          "variations": [
+            {
+              "id": "399998",
+              "key": "off",
+              "featureEnabled": false,
+              "variables": [
+                { "id": "41572", "value": "480" },
+                { "id": "41573", "value": "200" },
+                { "id": "41574", "value": "center" }
+              ]
+            }
+          ],
+          "trafficAllocation": [{ "entityId": "399998", "endOfRange": 10000 }],
+          "forcedVariations": {},
+          "audienceIds": [],
+          "audienceConditions": []
+        }
+      ]
+    },
+    {
+      "id": "rollout-127366-28009160713",
+      "experiments": [
+        {
+          "id": "default-rollout-127366-28009160713",
+          "key": "default-rollout-127366-28009160713",
+          "status": "Running",
+          "layerId": "rollout-127366-28009160713",
+          "variations": [
+            {
+              "id": "400005",
+              "key": "off",
+              "featureEnabled": false,
+              "variables": [
+                { "id": "41575", "value": "false" },
+                { "id": "41576", "value": "local" },
+                { "id": "41577", "value": "title" },
+                { "id": "41698", "value": "0" },
+                { "id": "41699", "value": "3.5" },
+                {
+                  "id": "41700",
+                  "value": "{\n\t\"prop\": 12,\n  \"prop2\": true,\n  \"prop3\": 12.21,\n  \"prop4\": [1,2,3]\n}"
+                }
+              ]
+            }
+          ],
+          "trafficAllocation": [{ "entityId": "400005", "endOfRange": 10000 }],
+          "forcedVariations": {},
+          "audienceIds": [],
+          "audienceConditions": []
+        }
+      ]
+    },
+    {
+      "id": "rollout-127580-28009160713",
+      "experiments": [
+        {
+          "id": "default-rollout-127580-28009160713",
+          "key": "default-rollout-127580-28009160713",
+          "status": "Running",
+          "layerId": "rollout-127580-28009160713",
+          "variations": [
+            {
+              "id": "401088",
+              "key": "off",
+              "featureEnabled": false,
+              "variables": []
+            }
+          ],
+          "trafficAllocation": [{ "entityId": "401088", "endOfRange": 10000 }],
+          "forcedVariations": {},
+          "audienceIds": [],
+          "audienceConditions": []
+        }
+      ]
+    },
+    {
+      "id": "rollout-127961-28009160713",
+      "experiments": [
+        {
+          "id": "default-rollout-127961-28009160713",
+          "key": "default-rollout-127961-28009160713",
+          "status": "Running",
+          "layerId": "rollout-127961-28009160713",
+          "variations": [
+            {
+              "id": "402311",
+              "key": "off",
+              "featureEnabled": false,
+              "variables": []
+            }
+          ],
+          "trafficAllocation": [{ "entityId": "402311", "endOfRange": 10000 }],
+          "forcedVariations": {},
+          "audienceIds": [],
+          "audienceConditions": []
+        }
+      ]
+    },
+    {
+      "id": "rollout-127962-28009160713",
+      "experiments": [
+        {
+          "id": "default-rollout-127962-28009160713",
+          "key": "default-rollout-127962-28009160713",
+          "status": "Running",
+          "layerId": "rollout-127962-28009160713",
+          "variations": [
+            {
+              "id": "402313",
+              "key": "off",
+              "featureEnabled": false,
+              "variables": []
+            }
+          ],
+          "trafficAllocation": [{ "entityId": "402313", "endOfRange": 10000 }],
+          "forcedVariations": {},
+          "audienceIds": [],
+          "audienceConditions": []
+        }
+      ]
+    },
+    {
+      "id": "rollout-127963-28009160713",
+      "experiments": [
+        {
+          "id": "default-rollout-127963-28009160713",
+          "key": "default-rollout-127963-28009160713",
+          "status": "Running",
+          "layerId": "rollout-127963-28009160713",
+          "variations": [
+            {
+              "id": "402315",
+              "key": "off",
+              "featureEnabled": false,
+              "variables": []
+            }
+          ],
+          "trafficAllocation": [{ "entityId": "402315", "endOfRange": 10000 }],
+          "forcedVariations": {},
+          "audienceIds": [],
+          "audienceConditions": []
+        }
+      ]
+    },
+    {
+      "id": "rollout-143011-28009160713",
+      "experiments": [
+        {
+          "id": "default-rollout-143011-28009160713",
+          "key": "default-rollout-143011-28009160713",
+          "status": "Running",
+          "layerId": "rollout-143011-28009160713",
+          "variations": [
+            {
+              "id": "456126",
+              "key": "off",
+              "featureEnabled": false,
+              "variables": []
+            }
+          ],
+          "trafficAllocation": [{ "entityId": "456126", "endOfRange": 10000 }],
+          "forcedVariations": {},
+          "audienceIds": [],
+          "audienceConditions": []
+        }
+      ]
+    },
+    {
+      "id": "rollout-147838-28009160713",
+      "experiments": [
+        {
+          "id": "default-rollout-147838-28009160713",
+          "key": "default-rollout-147838-28009160713",
+          "status": "Running",
+          "layerId": "rollout-147838-28009160713",
+          "variations": [
+            {
+              "id": "471966",
+              "key": "on",
+              "featureEnabled": true,
+              "variables": [{ "id": "49448", "value": "Buy Now!" }]
+            }
+          ],
+          "trafficAllocation": [{ "entityId": "471966", "endOfRange": 10000 }],
+          "forcedVariations": {},
+          "audienceIds": [],
+          "audienceConditions": []
+        }
+      ]
+    }
+  ],
+  "experiments": [],
+  "groups": []
+}
