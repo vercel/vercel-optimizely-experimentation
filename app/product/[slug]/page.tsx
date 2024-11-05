@@ -15,11 +15,12 @@ import ButtonSkeleton from "@/components/ui/button-skeleton";
 import { FlagValues } from "@vercel/flags/react";
 import { showBuyNowFlag } from "@/lib/flags";
 
-export default async function ProductDetailPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+export default async function ProductDetailPage(
+  props: {
+    params: Promise<{ slug: string }>;
+  }
+) {
+  const params = await props.params;
   const product = products.filter((p) => p.slug === params.slug)[0];
   if (!product) {
     notFound();

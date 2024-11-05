@@ -42,8 +42,8 @@ export default function CartPage() {
   );
 }
 
-function getProductsFromCookie() {
-  const cookieStore = cookies();
+async function getProductsFromCookie() {
+  const cookieStore = await cookies();
   const cart = cookieStore.get("cart");
   const cartProductIds = cart?.value
     ? (JSON.parse(cart.value) as string[])
@@ -53,8 +53,8 @@ function getProductsFromCookie() {
   }));
 }
 
-function Cart() {
-  const products = getProductsFromCookie();
+async function Cart() {
+  const products = await getProductsFromCookie();
 
   const total = products.reduce((acc, product) => acc + product.price, 0);
 
@@ -99,8 +99,8 @@ function Cart() {
   );
 }
 
-function OrderSummary() {
-  const products = getProductsFromCookie();
+async function OrderSummary() {
+  const products = await getProductsFromCookie();
 
   const subtotal = products.reduce((acc, product) => acc + product.price, 0);
 
