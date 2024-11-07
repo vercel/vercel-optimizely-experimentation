@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // Config options here
   experimental: {
-    ppr: "incremental",
+    // ppr: "incremental",
   },
 };
 
