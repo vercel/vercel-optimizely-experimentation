@@ -1,34 +1,48 @@
 import { NextResponse } from "next/server";
+import crypto from "crypto";
+import { z } from "zod";
 
-export async function POST(req) {
+export async function POST(req: Request) {
   try {
-    const signature = req.headers.get("X-Hub-Signature");
-
-    if (!signature) {
-      throw new Error("Missing X-Hub-Signature header");
-    }
-
-    if (signature !== process.env.OPTIMIZELY_WEBHOOK_SECRET) {
-      throw new Error("Invalid X-Hub-Signature header");
-    }
-
+    // Read the request body once
     const body = await req.json();
 
-    if (!body?.data?.origin_url || !body?.data?.environment) {
-      throw new Error("Missing datafile webhook payload");
-    }
+    // Verify the webhook request came from Optimizely
+    const isVerified = await verifyOptimizelyWebhook(req.headers, body);
 
-    if (body.data.environment !== "Production") {
+    if (!isVerified) {
       return NextResponse.json(
-        { success: true, message: "Pre-production environment event" },
-        { status: 200 }
+        { success: false, message: "Invalid webhook request" },
+        { status: 401 }
       );
     }
 
-    const response = await fetch(body.data.origin_url);
+    // Validate the request body
+    const { data, success, error } =
+      optimizelyWebhookBodySchema.safeParse(body);
+
+    if (!success) {
+      const errorMessages = error.issues.map(
+        (issue) => `${issue.path.join(".")}: ${issue.message}`
+      );
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Invalid request body",
+          errors: errorMessages,
+        },
+        { status: 400 }
+      );
+    }
+
+    const { origin_url } = data.data;
+
+    const response = await fetch(origin_url);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch JSON Optimizely CDN`);
+      throw new Error(
+        `Failed to fetch JSON from Optimizely CDN: ${response.statusText}`
+      );
     }
 
     const datafile = await response.json();
@@ -37,30 +51,69 @@ export async function POST(req) {
 
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (error) {
-    console.error(error);
-    return NextResponse.json({ success: false, error }, { status: 500 });
+    console.error("Error processing webhook:", error);
+    return NextResponse.json(
+      { success: false, message: "Internal server error" },
+      { status: 500 }
+    );
+  }
+}
+
+async function verifyOptimizelyWebhook(
+  headers: Headers,
+  body: string
+): Promise<boolean> {
+  try {
+    const WEBHOOK_SECRET = process.env.OPTIMIZELY_WEBHOOK_SECRET;
+    if (!WEBHOOK_SECRET) {
+      throw new Error("Missing OPTIMIZELY_WEBHOOK_SECRET environment variable");
+    }
+
+    const signature = headers.get("X-Hub-Signature");
+    if (!signature) {
+      throw new Error("Missing X-Hub-Signature header");
+    }
+
+    const [algorithm, hash] = signature.split("=");
+    if (algorithm !== "sha1" || !hash) {
+      throw new Error("Invalid signature format");
+    }
+
+    const hmac = crypto.createHmac("sha1", WEBHOOK_SECRET);
+    const digest = hmac.update(body).digest("hex");
+
+    return crypto.timingSafeEqual(
+      Buffer.from(hash, "hex"),
+      Buffer.from(digest, "hex")
+    );
+  } catch (error) {
+    console.error("Error verifying webhook:", error.message);
+    return false;
   }
 }
 
 async function updateEdgeConfig(datafile: any) {
-  if (!process.env.VERCEL_EDGE_CONFIG_ID) {
-    throw new Error("Missing VERCEL_EDGE_CONFIG_ID");
+  const { VERCEL_EDGE_CONFIG_ID, VERCEL_TEAM_ID, VERCEL_API_TOKEN } =
+    process.env;
+
+  if (!VERCEL_EDGE_CONFIG_ID) {
+    throw new Error("Missing VERCEL_EDGE_CONFIG_ID environment variable");
   }
 
-  if (!process.env.VERCEL_TEAM_ID) {
-    throw new Error("Missing VERCEL_TEAM_ID");
+  if (!VERCEL_TEAM_ID) {
+    throw new Error("Missing VERCEL_TEAM_ID environment variable");
   }
 
-  if (!process.env.VERCEL_API_TOKEN) {
-    throw new Error("Missing VERCEL_API_TOKEN");
+  if (!VERCEL_API_TOKEN) {
+    throw new Error("Missing VERCEL_API_TOKEN environment variable");
   }
 
-  const edgeConfigEndpoint = `https://api.vercel.com/v1/edge-config/${process.env.VERCEL_EDGE_CONFIG_ID}/items?teamId=${process.env.VERCEL_TEAM_ID}`;
+  const edgeConfigEndpoint = `https://api.vercel.com/v1/edge-config/${VERCEL_EDGE_CONFIG_ID}/items?teamId=${VERCEL_TEAM_ID}`;
 
-  return await fetch(edgeConfigEndpoint, {
+  const response = await fetch(edgeConfigEndpoint, {
     method: "PATCH",
     headers: {
-      Authorization: `Bearer ${process.env.VERCEL_API_TOKEN}`,
+      Authorization: `Bearer ${VERCEL_API_TOKEN}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
@@ -73,4 +126,22 @@ async function updateEdgeConfig(datafile: any) {
       ],
     }),
   });
+
+  if (!response.ok) {
+    throw new Error(`Failed to update Edge Config: ${response.statusText}`);
+  }
+
+  return response;
 }
+
+const optimizelyWebhookBodySchema = z.object({
+  project_id: z.number(),
+  timestamp: z.number(),
+  event: z.literal("project.datafile_updated"),
+  data: z.object({
+    revision: z.number(),
+    origin_url: z.string().url(),
+    cdn_url: z.string().url(),
+    environment: z.string(),
+  }),
+});
