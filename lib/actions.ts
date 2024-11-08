@@ -15,7 +15,7 @@ export async function trackProductPurchase() {
 
   await client.onReady();
 
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const shopper = cookieStore.get("shopper")?.value;
   const context = client?.createUserContext(shopper);
 
@@ -27,7 +27,7 @@ export async function trackProductPurchase() {
 }
 
 export async function addToCart(productId: string) {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   let cartItems: string[] = [];
   if (cookieStore.has("cart")) {
     cartItems = JSON.parse(cookieStore.get("cart")?.value!) as string[];
@@ -39,7 +39,7 @@ export async function addToCart(productId: string) {
 }
 
 export async function removeFromCart(productId: string) {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const cartItems = JSON.parse(cookieStore.get("cart")?.value!) as string[];
   cookieStore.set(
     "cart",
@@ -49,7 +49,7 @@ export async function removeFromCart(productId: string) {
 }
 
 export async function placeOrder() {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   cookieStore.set("cart", JSON.stringify([]));
   await trackProductPurchase();
   redirect("/success");
