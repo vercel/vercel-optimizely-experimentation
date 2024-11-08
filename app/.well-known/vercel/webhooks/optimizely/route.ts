@@ -66,7 +66,7 @@ async function verifyOptimizelyWebhook(
   try {
     const WEBHOOK_SECRET = process.env.OPTIMIZELY_WEBHOOK_SECRET;
     if (!WEBHOOK_SECRET) {
-      throw new Error("Missing OPTIMIZELY_WEBHOOK_SECRET");
+      throw new Error("Missing OPTIMIZELY_WEBHOOK_SECRET environment variable");
     }
 
     const signature = headers.get("X-Hub-Signature");
@@ -96,10 +96,16 @@ async function updateEdgeConfig(datafile: any) {
   const { VERCEL_EDGE_CONFIG_ID, VERCEL_TEAM_ID, VERCEL_API_TOKEN } =
     process.env;
 
-  if (!VERCEL_EDGE_CONFIG_ID || !VERCEL_TEAM_ID || !VERCEL_API_TOKEN) {
-    throw new Error(
-      "Missing required environment variables for Edge Config update"
-    );
+  if (!VERCEL_EDGE_CONFIG_ID) {
+    throw new Error("Missing VERCEL_EDGE_CONFIG_ID environment variable");
+  }
+
+  if (!VERCEL_TEAM_ID) {
+    throw new Error("Missing VERCEL_TEAM_ID environment variable");
+  }
+
+  if (!VERCEL_API_TOKEN) {
+    throw new Error("Missing VERCEL_API_TOKEN environment variable");
   }
 
   const edgeConfigEndpoint = `https://api.vercel.com/v1/edge-config/${VERCEL_EDGE_CONFIG_ID}/items?teamId=${VERCEL_TEAM_ID}`;
