@@ -35,14 +35,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const { environment, origin_url } = data.data;
-
-    if (environment !== "Production") {
-      return NextResponse.json(
-        { success: true, message: "Pre-production environment event" },
-        { status: 200 }
-      );
-    }
+    const { origin_url } = data.data;
 
     const response = await fetch(origin_url);
 
