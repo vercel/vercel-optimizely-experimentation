@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import type { NextFetchEvent, NextRequest } from "next/server";
 import { unstable_precompute as precompute } from "@vercel/flags/next";
 import { precomputeFlags } from "./lib/flags";
 
@@ -7,11 +7,12 @@ export const config = {
   matcher: ["/", "/product/:path*", "/cart", "/success"],
 };
 
-export async function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest, event: NextFetchEvent) {
   let response = NextResponse.next();
 
   const context = {
     /* pass context on whatever your flag will need */
+    event,
   };
 
   // decide precompute flags for the homepage only

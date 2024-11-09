@@ -8,7 +8,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { precomputeFlags, showPromoBannerFlag } from "@/lib/flags";
 
-export default async function Home({ params }: { params: { code: string } }) {
+export default async function Home(props: { params: Promise<{ code: string }> }) {
+  const params = await props.params;
   // passing params.code and precomputedFlags reads the precomputed result
   // if you call showPromoBannerFlag() without any arguments it would decide
   // within this page instead of reading the precomputed result
