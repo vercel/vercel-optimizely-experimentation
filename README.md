@@ -3,7 +3,7 @@
 This is a [Next.js](https://nextjs.org/) template that integrates with [Optimizely Feature Experimentation](https://www.optimizely.com/products/feature-experimentation/).
 
 This project uses Next.js [App Router](https://nextjs.org/docs/app) and [Partial Prerendering (PPR)](https://nextjs.org/docs/app/building-your-application/rendering/partial-prerendering) to combine the benefits of static and dynamic rendering. This enables fast page loads to users with dynamic content and experiments.
-Optimizely experimentation data is sync to [Vercel Edge Config](https://vercel.com/docs/storage/edge-config) through [Optimizely webhooks](https://docs.developers.optimizely.com/feature-experimentation/docs/configure-webhooks) which allows [Edge Middleware](https://vercel.com/docs/functions/edge-middleware) and [React Server Components (RSC)](https://react.dev/reference/rsc/server-components) to perform decisions with minimal latency.
+Optimizely experimentation data is saved to [Vercel Edge Config](https://vercel.com/docs/storage/edge-config) through [Optimizely webhooks](https://docs.developers.optimizely.com/feature-experimentation/docs/configure-webhooks) which allows [Edge Middleware](https://vercel.com/docs/functions/edge-middleware) and [React Server Components (RSC)](https://react.dev/reference/rsc/server-components) to perform decisions with minimal latency.
 
 This project uses:
 
@@ -42,7 +42,7 @@ You must set the following environment variables to run this application:
 
 The Optimizely API key, SDK key, and Project ID are retrieved from your [Optimizely Feature Experimentation](https://app.optimizely.com/) project and account settings. The Optimizely webhook secret is created upon webhook creation. See the "Integrating Optimizely Webhooks with Vercel Edge Config" section below and [Optimizely's Create Webhooks](https://docs.developers.optimizely.com/feature-experimentation/docs/configure-webhooks) documentation for more details.
 
-A Vercel API Token, Team ID, and Edge Config ID are required for storing experiment data in Vercel Edge Config. Refer to [Creating an Access Token](https://vercel.com/docs/rest-api#creating-an-access-token) in Vercel's REST API documentation for creating your token, and [Vercel Edge Config documentation](https://vercel.com/docs/storage/edge-config) for creating your Edge Config store.
+A Vercel API Token, Team ID, and Edge Config are required for storing experiment data in Vercel Edge Config. Refer to [Creating an Access Token](https://vercel.com/docs/rest-api#creating-an-access-token) in Vercel's REST API documentation for creating your token, and [Vercel Edge Config documentation](https://vercel.com/docs/storage/edge-config) for creating your Edge Config store.
 
 Run the development server locally:
 

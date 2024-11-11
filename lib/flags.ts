@@ -17,36 +17,42 @@ export const showBuyNowFlag = flag<{
     const datafile = await get("datafile");
 
     if (!datafile) {
-      throw new Error("Failed to retrieve datafile from Vercel Edge Config");
+      throw new Error("Failed to retrive datafile from Vercel Edge Config");
     }
 
-    const client = optimizely.createInstance({
-      datafile: datafile as object,
-      eventDispatcher: {
-        dispatchEvent: (event) => {},
-      },
-    });
+    let flag = { enabled: false, buttonText: "" };
 
-    if (!client) {
-      throw new Error("Failed to create client");
+    try {
+      const client = optimizely.createInstance({
+        datafile: datafile as object,
+        eventDispatcher: {
+          dispatchEvent: (event) => {},
+        },
+      });
+
+      if (!client) {
+        throw new Error("Failed to create client");
+      }
+
+      await client.onReady();
+
+      const shopper = getShopperFromHeaders(headers);
+      const context = client.createUserContext(shopper);
+
+      if (!context) {
+        throw new Error("Failed to create user context");
+      }
+
+      const decision = context.decide("buynow");
+      flag = {
+        enabled: decision.enabled,
+        buttonText: decision.variables.buynow_text as string,
+      };
+    } catch (error) {
+      console.error("Optimizely error:", error);
+    } finally {
+      return flag;
     }
-
-    await client.onReady();
-
-    const shopper = getShopperFromHeaders(headers);
-    const context = client.createUserContext(shopper);
-
-    if (!context) {
-      throw new Error("Failed to create user context");
-    }
-
-    const decision = context.decide("buynow");
-    const flag = {
-      enabled: decision.enabled,
-      buttonText: decision.variables.buynow_text as string,
-    };
-
-    return flag;
   },
 });
 
@@ -65,22 +71,30 @@ export const showPromoBannerFlag = flag<boolean>({
       throw new Error("Failed to retrieve datafile from Vercel Edge Config");
     }
 
-    const client = optimizely.createInstance({
-      datafile: datafile as object,
-      eventDispatcher: {
-        dispatchEvent: (event) => {},
-      },
-    });
+    let flag = false;
 
-    const shopper = getShopperFromHeaders(headers);
-    const context = client!.createUserContext(shopper);
+    try {
+      const client = optimizely.createInstance({
+        datafile: datafile as object,
+        eventDispatcher: {
+          dispatchEvent: (event) => {},
+        },
+      });
 
-    if (!context) {
-      throw new Error("Failed to create user context");
+      const shopper = getShopperFromHeaders(headers);
+      const context = client!.createUserContext(shopper);
+
+      if (!context) {
+        throw new Error("Failed to create user context");
+      }
+
+      const decision = context.decide("showpromo");
+      flag = decision.enabled;
+    } catch (error) {
+      console.error("Optimizely error:", error);
+    } finally {
+      return flag;
     }
-
-    const decision = context.decide("showpromo");
-    return decision.enabled;
   },
 });
 
