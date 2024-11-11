@@ -5,10 +5,11 @@ import { z } from "zod";
 export async function POST(req: Request) {
   try {
     // Read the request body once
-    const body = await req.json();
+    const text = await req.text();
+    const body = JSON.parse(text);
 
     // Verify the webhook request came from Optimizely
-    const isVerified = await verifyOptimizelyWebhook(req.headers, body);
+    const isVerified = await verifyOptimizelyWebhook(req.headers, text);
 
     if (!isVerified) {
       return NextResponse.json(
@@ -93,27 +94,33 @@ async function verifyOptimizelyWebhook(
 }
 
 async function updateEdgeConfig(datafile: any) {
-  const { VERCEL_EDGE_CONFIG_ID, VERCEL_TEAM_ID, VERCEL_API_TOKEN } =
-    process.env;
+  const { EDGE_CONFIG, TEAM_ID, API_TOKEN } = process.env;
 
-  if (!VERCEL_EDGE_CONFIG_ID) {
-    throw new Error("Missing VERCEL_EDGE_CONFIG_ID environment variable");
+  if (!EDGE_CONFIG) {
+    throw new Error("Missing Vercel EDGE_CONFIG environment variable");
   }
 
-  if (!VERCEL_TEAM_ID) {
-    throw new Error("Missing VERCEL_TEAM_ID environment variable");
+  if (!TEAM_ID) {
+    throw new Error("Missing Vercel TEAM_ID environment variable");
   }
 
-  if (!VERCEL_API_TOKEN) {
-    throw new Error("Missing VERCEL_API_TOKEN environment variable");
+  if (!API_TOKEN) {
+    throw new Error("Missing Vercel API_TOKEN environment variable");
   }
 
-  const edgeConfigEndpoint = `https://api.vercel.com/v1/edge-config/${VERCEL_EDGE_CONFIG_ID}/items?teamId=${VERCEL_TEAM_ID}`;
+  const match = EDGE_CONFIG.match(/\/([^\/?]+)\?/);
+  const edgeConfigID = match?.[1];
+
+  if (!edgeConfigID) {
+    throw new Error("Invalid EDGE_CONFIG environment variable");
+  }
+
+  const edgeConfigEndpoint = `https://api.vercel.com/v1/edge-config/${edgeConfigID}/items?teamId=${TEAM_ID}`;
 
   const response = await fetch(edgeConfigEndpoint, {
     method: "PATCH",
     headers: {
-      Authorization: `Bearer ${VERCEL_API_TOKEN}`,
+      Authorization: `Bearer ${API_TOKEN}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
@@ -137,7 +144,7 @@ async function updateEdgeConfig(datafile: any) {
 const optimizelyWebhookBodySchema = z.object({
   project_id: z.number(),
   timestamp: z.number(),
-  event: z.literal("project.datafile_updated"),
+  event: z.string(),
   data: z.object({
     revision: z.number(),
     origin_url: z.string().url(),

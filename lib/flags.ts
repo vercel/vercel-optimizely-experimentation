@@ -17,7 +17,7 @@ export const showBuyNowFlag = flag<{
     const datafile = await get("datafile");
 
     if (!datafile) {
-      throw new Error("Failed to retrive datafile from Vercel Edge Config");
+      throw new Error("Failed to retrieve datafile from Vercel Edge Config");
     }
 
     const client = optimizely.createInstance({
@@ -62,7 +62,7 @@ export const showPromoBannerFlag = flag<boolean>({
     const datafile = await get("datafile");
 
     if (!datafile) {
-      throw new Error("Failed to retrive datafile from Vercel Edge Config");
+      throw new Error("Failed to retrieve datafile from Vercel Edge Config");
     }
 
     const client = optimizely.createInstance({

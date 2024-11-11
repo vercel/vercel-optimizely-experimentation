@@ -1,8 +1,9 @@
-## Fast & Safe Experimentation with Next.js, Vercel, and Optimizely
+## Next.js and Optimizely Feature Experimentation
 
-This is a [Next.js](https://nextjs.org/) template that demonstrates how to integrate Optimizely Feature Experimentation with Vercel Feature Flags.
+This is a [Next.js](https://nextjs.org/) template that integrates with [Optimizely Feature Experimentation](https://www.optimizely.com/products/feature-experimentation/).
 
-This project uses Next.js App Router with Partial Prerendering (PPR) to deliver a fast static shell to users immediately, then stream in dynamic content and experiments. Optimizely experimentation data is synced to Vercel Edge Config via webhooks. This enables experiments for both static and dynamic pages with decisions executed in Edge Middleware and React Server Components (RSC). For more information on these patterns please refer to [Using flags in Next.js](https://vercel.com/docs/workflow-collaboration/feature-flags/flags-pattern-nextjs) and [Precomputed Flags](https://vercel.com/docs/workflow-collaboration/feature-flags/flags-pattern-nextjs#precomputing-flags) documentation.
+This project uses Next.js [App Router](https://nextjs.org/docs/app) and [Partial Prerendering (PPR)](https://nextjs.org/docs/app/building-your-application/rendering/partial-prerendering) to combine the benefits of static and dynamic rendering. This enables fast page loads to users with dynamic content and experiments.
+Optimizely experimentation data is sync to [Vercel Edge Config](https://vercel.com/docs/storage/edge-config) through [Optimizely webhooks](https://docs.developers.optimizely.com/feature-experimentation/docs/configure-webhooks) which allows [Edge Middleware](https://vercel.com/docs/functions/edge-middleware) and [React Server Components (RSC)](https://react.dev/reference/rsc/server-components) to perform decisions with minimal latency.
 
 This project uses:
 
@@ -17,31 +18,31 @@ This project uses:
 
 ## Deploy on Vercel
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fvercel-optimizely-experimentation&env=OPTIMIZELY_API_KEY,OPTIMIZELY_SDK_KEY,OPTIMIZELY_PROJECT_ID,OPTIMIZELY_WEBHOOK_SECRET,VERCEL_API_TOKEN,VERCEL_TEAM_ID,VERCEL_EDGE_CONFIG_ID,FLAGS_SECRET&project-name=vercel-optimizely-experimentation&repository-name=vercel-optimizely-experimentation&demo-title=Vercel%20Optimizely%20Experimentation&demo-description=Fast%20%26%20safe%20experimentation%20with%20Vercel%2C%20Next.js%20and%20Optimizely&demo-url=https%3A%2F%2Fvercel-optimizely-experimentation.vercel.app%2F&edge-config-stores=%7B%22EDGE_CONFIG%22:%7B%22optimizely_fx_data%22:true%7D%7D&env=EDGE_CONFIG)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnextjs-optimizely-experimentation&env=OPTIMIZELY_API_KEY,OPTIMIZELY_SDK_KEY,OPTIMIZELY_PROJECT_ID,OPTIMIZELY_WEBHOOK_SECRET,API_TOKEN,TEAM_ID,EDGE_CONFIG,FLAGS_SECRET&project-name=nextjs-optimizely-experimentation&repository-name=nextjs-optimizely-experimentation&demo-title=Next.js%20Optimizely%20Experimentation&demo-description=Fast%20and%20safe%20experimentation%20with%20Next.js%2C%20Vercel%2C%20and%20Optimizely%20Feature%20Experimentation&demo-url=https%3A%2F%2Fnextjs-optimizely-experimentation.vercel.app%2F&edge-config-stores=%7B%22EDGE_CONFIG%22%3A%7B%22stock%22%3A%7B%22cup%22%3A1%2C%22hat%22%3A4%2C%22mug%22%3A5%2C%22hoodie%22%3A4%7D%2C%22datafile%22%3A%7B%7D%7D%7D)
 
 The easiest way to deploy your Next.js app is to use the Vercel Platform from the creators of Next.js.
 
-Check out our Next.js deployment documentation for more details.
+Check out our [Next.js deployment documentation](https://vercel.com/docs/frameworks/nextjs) for more details.
 
 ## Getting started
 
 Sign up for a free [Optimizely Feature Flags account](https://www.optimizely.com/enhancements/free-feature-flagging) and create a new project.
 
-The following environment variables are required:
+You must set the following environment variables to run this application:
 
 - `OPTIMIZELY_API_KEY`
 - `OPTIMIZELY_SDK_KEY`
 - `OPTIMIZELY_PROJECT_ID`
 - `OPTIMIZELY_WEBHOOK_SECRET`
-- `VERCEL_API_TOKEN`
-- `VERCEL_TEAM_ID`
-- `VERCEL_EDGE_CONFIG_ID`
+- `API_TOKEN`
+- `TEAM_ID`
+- `EDGE_CONFIG`
 - `FLAGS_SECRET`
   Create via: `node -e "console.log(crypto.randomBytes(32).toString('base64url'))"`
 
-Optimizely environment variables values can be retrieved from [app.optimizely.com](https://app.optimizely.com/) and Optimizely webhooks can be created by following the steps outlined in the [Create Webhooks](https://docs.developers.optimizely.com/feature-experimentation/docs/configure-webhooks) documentation.
+The Optimizely API key, SDK key, and Project ID are retrieved from your [Optimizely Feature Experimentation](https://app.optimizely.com/) project and account settings. The Optimizely webhook secret is created upon webhook creation. See the "Integrating Optimizely Webhooks with Vercel Edge Config" section below and [Optimizely's Create Webhooks](https://docs.developers.optimizely.com/feature-experimentation/docs/configure-webhooks) documentation for more details.
 
-A Vercel API Token, Team ID, and Edge Config ID are required for storing experiment data in Vercel Edge Config. Please refer to the [Vercel REST API](https://vercel.com/docs/rest-api) and [Edge Config](https://vercel.com/docs/storage/edge-config) documentation for more information.
+A Vercel API Token, Team ID, and Edge Config ID are required for storing experiment data in Vercel Edge Config. Refer to [Creating an Access Token](https://vercel.com/docs/rest-api#creating-an-access-token) in Vercel's REST API documentation for creating your token, and [Vercel Edge Config documentation](https://vercel.com/docs/storage/edge-config) for creating your Edge Config store.
 
 Run the development server locally:
 
@@ -56,6 +57,28 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Integrating Optimizely Webhooks with Vercel Edge Config
+
+This experimentation template uses Optimizely webhooks to sync experiment data to Vercel Edge Config. This allows experiment decisions to run in Edge Middleware and React Server Components with minimal latency.
+
+To configure your Optimizely webhook:
+
+1. Navigate your browser to [app.optimizely.com](https://app.optimizely.com/).
+2. Login and go to your Optimizely Feature Experimentation project settings.
+3. Select the "Webhooks" tab.
+4. Click "Create New Webhook".
+5. Provide a name for your webhook.
+6. Set the URL to the location of your Next.js Optimizely webhook route (`https://[project domain]/api/.well-known/vercel/webhooks/optimizely`).
+7. Under events, ensure the following events are selected:
+   1. Datafile: Updated
+   2. Flag: Created, Updated, Archived, Deleted
+   3. Event: Created, Updated, Archived, Deleted
+   4. Variable: Created, Updated, Archived, Deleted
+   5. Variation: Created, Updated, Archived, Deleted
+8. Click "Save" and note the secret key generated for your webhook.
+9. Set your Vercel environment variable, `OPTIMIZELY_WEBHOOK_SECRET`, to the secret key.
+10. Once your webhook is created, create or update a flag in Optimizely to trigger the webhook and sync your experiment data to Vercel Edge Config.
 
 ## Important files and folders
 
@@ -75,11 +98,10 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 Take a look at the following resources to learn more:
 
-- [Guide - How to Integrate Optimizely Feature Experimentation with Next.js and Vercel](https://vercel.com/guides/how-to-integrate-optimizely-feature-experimentation-next-vercel)
-- [Workshop - Fast & Safe Experimentation with Next.js and Optimizely](https://vercel.com/resources/workshop-fast-and-safe-experimentation)
+- [Guide: How to Integrate Optimizely Feature Experimentation with Next.js and Vercel](https://vercel.com/guides/how-to-integrate-optimizely-feature-experimentation-next-vercel)
+- [Workshop: Fast & Safe Experimentation with Next.js and Optimizely](https://vercel.com/resources/workshop-fast-and-safe-experimentation)
+- [Vercel Feature Flags](https://vercel.com/docs/workflow-collaboration/feature-flags)
+- [Precomputed Flags](https://vercel.com/docs/workflow-collaboration/feature-flags/flags-pattern-nextjs#precomputing-flags)
+- [Vercel Toolbar](https://vercel.com/docs/workflow-collaboration/vercel-toolbar)
 - [Next.js Documentation](https://nextjs.org/docs)
 - [Learn Next.js](https://nextjs.org/learn)
-- [The Vercel Toolbar](https://vercel.com/docs/workflow-collaboration/vercel-toolbar)
-- [Feature Flags Ship Announcement](https://vercel.com/blog/feature-flags)
-- [Feature Flags with Vercel](https://vercel.com/docs/workflow-collaboration/feature-flags)
-- [Optimizely Feature Experimentation](https://www.optimizely.com/products/feature-experimentation/)
