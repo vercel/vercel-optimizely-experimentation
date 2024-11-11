@@ -34,7 +34,7 @@ export const showBuyNowFlag = flag<{
         throw new Error("Failed to create client");
       }
 
-      await client.onReady();
+      await client.onReady({ timeout: 500 });
 
       const shopper = getShopperFromHeaders(headers);
       const context = client.createUserContext(shopper);
@@ -80,6 +80,12 @@ export const showPromoBannerFlag = flag<boolean>({
           dispatchEvent: (event) => {},
         },
       });
+
+      if (!client) {
+        throw new Error("Failed to create client");
+      }
+
+      await client.onReady({ timeout: 500 });
 
       const shopper = getShopperFromHeaders(headers);
       const context = client!.createUserContext(shopper);
